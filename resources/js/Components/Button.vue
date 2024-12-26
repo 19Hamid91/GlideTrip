@@ -21,7 +21,7 @@ export default {
         },
         state: {
             type: String,
-            default: 'primary' // primary, secondary, tertiary, hover, disabled
+            default: 'primary' // primary, secondary, tertiary, reverse, disabled
         },
         icon: {
             type: String,
@@ -72,6 +72,9 @@ export default {
                     break;
                 case 'disabled':
                     stateClasses = 'bg-[#cccccc] text-[#666666] cursor-not-allowed';
+                    break;
+                case 'reverse':
+                    stateClasses = 'bg-custom-green hover:bg-custom-blue text-white';
                     break;
             }
 

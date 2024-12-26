@@ -3,22 +3,26 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+
+const page = usePage();
+const roles = page.props.roles || [];
+const isSuperAdmin = roles.includes('super_admin');
 
 defineProps({
     mustVerifyEmail: {
-        type: Boolean,
+        type: Boolean
     },
     status: {
-        type: String,
-    },
+        type: String
+    }
 });
 </script>
 
 <template>
     <Head title="Profile" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :is-super-admin="isSuperAdmin">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Profile</h2>
         </template>

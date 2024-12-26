@@ -26,7 +26,7 @@
                 <p class="style-caption-bold">Schedule</p>
             </div>
         </a>
-        <a href="#" :class="['menu', active !== 'profile' ? 'opacity-25' : '']">
+        <a :href="route('front.profile.edit')" :class="['menu', active !== 'profile' ? 'opacity-25' : '']">
             <div class="flex flex-col justify-center w-fit gap-1">
                 <div class="w-4 h-4 flex shrink-0 overflow-hidden mx-auto text-custom-blue">
                     <img src="/icons/small/user.svg" alt="icon" />

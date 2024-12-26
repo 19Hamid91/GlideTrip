@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PackageBookingCheckoutRequest;
 use App\Http\Requests\PackageBookingRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Category;
 use App\Models\PackageBank;
 use App\Models\PackageBooking;
@@ -12,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -209,5 +211,39 @@ class FrontController extends Controller
         return Inertia::render('Front/Search', [
             'packageTours' => $packageTours
         ]);
+    }
+
+    public function profile_edit()
+    {
+        $user = Auth::user();
+        $user->avatar_url = Storage::url($user->avatar);
+        return Inertia::render('Front/Profile', [
+            'user' => $user
+        ]);
+    }
+
+    public function profile_update(ProfileUpdateRequest $request)
+    {
+        DB::transaction(function () use ($request) {
+            $validated = $request->validated();
+            $user = $request->user();
+
+            $avatarPath = null;
+            if ($request->hasFile('avatar')) {
+                if ($user->avatar) {
+                    Storage::disk('public')->delete($user->avatar);
+                }
+                $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            }
+
+            // Update data pengguna
+            $user->name = $validated['name'];
+            $user->email = $validated['email'];
+            $user->phone_number = $validated['phone_number'];
+            $user->avatar = $avatarPath ?? $user->avatar;
+            $user->save();
+        });
+
+        return Redirect::route('front.profile.edit')->with('success', 'Profile updated successfully.');
     }
 }
