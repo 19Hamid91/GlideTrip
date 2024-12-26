@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+    .style-headline {
+        @apply text-2xl font-semibold tracking-[1px];
+    }
+    .style-subheadline {
+        @apply text-[14px] font-normal leading-[22px] tracking-[0.6px];
+    }
+    .style-highlight {
+        @apply text-[16px] font-semibold leading-[26px] tracking-[0.6px];
+    }
+    .style-title {
+        @apply text-[16px] font-semibold leading-[24px] tracking-[0px];
+    }
+    .style-body {
+        @apply text-[14px] font-normal leading-[22px] tracking-[0.35px];
+    }
+    .style-body-bold {
+        @apply text-[14px] font-semibold leading-[22px] tracking-[0.35px];
+    }
+    .style-caption {
+        @apply text-[12px] font-normal leading-[20px] tracking-[0.35px];
+    }
+    .style-caption-bold {
+        @apply text-[12px] font-semibold leading-[20px] tracking-[0.35px];
+    }
+    .label .button {
+        @apply text-[14px] font-semibold leading-[22px] tracking-[0.6px];
+    }
+    .custom-appearance-none {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        margin: 0;
+        padding: 0;
+        outline: none;
+        border: none;
+    }
+}
